@@ -118,4 +118,3 @@ proxy:
       auth-ui: none
       auth: passthru
       ui: none
-      demo-timetrack-ui: none
