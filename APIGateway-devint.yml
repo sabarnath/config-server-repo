@@ -111,12 +111,11 @@ proxy:
       roles: oauth2
       user-info: oauth2
       restrak: oauth2
-      demo-ems-services: oauth2
-      demo-ems-admin-services: oauth2
+      demo-services: oauth2
+      demo-admin-services: oauth2
       demo-ui-ems: none
       demo-common-ui: none
       auth-ui: none
       auth: passthru
       ui: none
       demo-timetrack-ui: none
-      timetrackmanagement: oauth2
