@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: AdministrationConsole
+    boot:
+        admin:
+            discovery:
+                converter:
+                    management-context-path: system
+
+eureka:
+    client:
+        enabled: true
+        registerWithEureka: true
+        fetchRegistry: true
+        serviceUrl:
+            defaultZone: http://admin:admin@discovery-service:8761/eureka

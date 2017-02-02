@@ -1,0 +1,122 @@
+spring:
+  mvc:
+    favicon:
+      enabled: false
+
+server:
+  port: 80
+  use-forward-headers: true
+#   ssl:
+#     key-alias: sabarnath.net
+##    key-password: x
+#     key-store-password: EGIlp191
+##     key-store: classpath:META-INF/wildcard_sabarnath_net_2018.jks
+#     key-store: /root/api_gateway/wildcard_sabarnath_net_2018.jks
+##    key-store-provider: x
+##    key-store-type: x
+
+cors:
+  allow-credentials: true
+  allowed-headers:
+    - "*"
+  allowed-methods:
+    - "*"
+  allowed-origins:
+    - "http://localhost"
+    - "http://localhost:4200"
+
+management:
+  security:
+    enabled: false
+
+endpoints:
+  health:
+    sensitive: false
+
+eureka:
+    client:
+        enabled: true
+        registerWithEureka: false
+        fetchRegistry: true
+        serviceUrl:
+            defaultZone: http://admin:admin@discovery-service:8761/eureka
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+openid-connect:
+  whitelist:
+    - "http://sabarnath.net:9090/auth/realms/demo"
+    - "http://sabarnath.net/auth/realms/demo"
+
+
+security:
+  sessions: NEVER
+  basic:
+    enabled: false
+  ignored:
+    - "/assets/**" # see http://stackoverflow.com/a/35640540/252344
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          strategy: THREAD
+          thread:
+            timeoutInMilliseconds: 80000
+
+ribbon:
+    ReadTimeout: 70000
+    ConnectTimeout: 70000
+    eureka:
+        enabled: true
+
+zuul:
+  addHostHeader: true
+  addProxyHeaders: true
+  ignoredPatterns: /system/**
+  host:
+    max-total-connections: 30000
+    max-per-route-connections: 3000
+  semaphore:
+    max-semaphores: 15000
+  routes:
+    console:
+      path: /console/**
+      strip-prefix: true
+      service-id: ADMINISTRATIONCONSOLE
+      sensitive-headers:
+    categories:
+      path: /catalog/authorization-categories/**
+      strip-prefix: false
+      service-id: AUTHORIZATIONCATALOG
+      sensitive-headers:
+    members:
+      path: /catalog/users/**
+      strip-prefix: false
+      service-id: USERSERVICE
+      sensitive-headers:
+
+proxy:
+  auth:
+    routes:
+      console: oauth2
+      categories: oauth2
+      members: oauth2
+      organizations: oauth2
+      roles: oauth2
+      user-info: oauth2
+      restrak: oauth2
+      demo-ems-services: oauth2
+      demo-ems-admin-services: oauth2
+      demo-ui-ems: none
+      demo-common-ui: none
+      auth-ui: none
+      auth: passthru
+      ui: none
+      demo-timetrack-ui: none
+      timetrackmanagement: oauth2
